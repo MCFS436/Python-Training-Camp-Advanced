@@ -9,7 +9,6 @@
 """
 import cv2
 import numpy as np
-
 def image_processing_pipeline(image_path):
     """
     使用 OpenCV 读取图像，进行高斯滤波和边缘检测。
@@ -27,4 +26,15 @@ def image_processing_pipeline(image_path):
     # 4. 使用 cv2.GaussianBlur() 进行高斯滤波。
     # 5. 使用 cv2.Canny() 进行边缘检测。
     # 6. 使用 try...except 包裹代码以处理可能的异常。
+    try:
+        image = cv2.imread(image_path)
+        if image is None:
+            return None
+        img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        blur = cv2.GaussianBlur(img, (5, 5), 0)
+        canny = cv2.Canny(blur, 50, 150)
+        return canny
+    except Exception as ex:
+        print(ex)
+        return None
     pass 
